@@ -18,10 +18,10 @@ classNames = [
 ]
 
 # Directory with images to process
-input_dir = r"C:\Users\suvar\OneDrive\Desktop\Obj-Detect\input" # Ensure this is a directory with images
+input_dir = r"C:\Users\suvar\OneDrive\Desktop\Obj-Detect\input" 
 output_dir = r"C:\Users\suvar\OneDrive\Desktop\Obj-Detect\output"
 
-# Ensure the output directory exists
+
 if not os.path.exists(output_dir):
     os.makedirs(output_dir)
 
@@ -43,19 +43,16 @@ for image_name in os.listdir(input_dir):
             x1, y1, x2, y2 = box.xyxy[0]
             x1, y1, x2, y2 = int(x1), int(y1), int(x2), int(y2)
             w, h = x2 - x1, y2 - y1
-            cvzone.cornerRect(img, (x1, y1, w, h), l=9)  # Optionally adjust line thickness
+            cvzone.cornerRect(img, (x1, y1, w, h), l=9)  
             conf = math.ceil((box.conf[0] * 100)) / 100
             cls = int(box.cls[0])
-            # Display box, name, and confidence of the object
+            
             cvzone.putTextRect(img, f'{classNames[cls]} {conf}', (max(0, x1), max(35, y1)), thickness=2)
     
-    # Save the annotated image
+   
     output_path = os.path.join(output_dir, image_name)
     cv2.imwrite(output_path, img)
 
-    # Optionally display the image
-    # cv2.imshow("Image", img)
-    # cv2.waitKey(0)
-
+ 
 # Cleanup
 cv2.destroyAllWindows()
